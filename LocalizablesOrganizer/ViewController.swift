@@ -234,14 +234,12 @@ extension ViewController{
             }
         }
         else{
+            //Errors
             if sentence.rangeOfString(";") == nil{
                 showAlert("There is a missing ; on line: \(sentence)", title: "Format error")
             }
             else if sentence.rangeOfString("\";") == nil{
                 showAlert("There is a missing \" on line: \(sentence)", title: "Format error")
-            }
-            else if sentence.rangeOfString("\"\"") != nil{
-                showAlert("Found double \" in line: \(sentence)", title: "Format error")
             }
             else{
                 let key = getKey(fromSentence: sentence)
@@ -252,8 +250,15 @@ extension ViewController{
                     if keysStringsArray.contains(key){
                         showAlert("Key duplicated in line: \(sentence)", title: "Format error")
                     }
-                    keysStringsArray.append(key)
+                    else{
+                        keysStringsArray.append(key)
+                    }
                 }
+            }
+            
+            //Warnings
+            if sentence.rangeOfString("\"\"") != nil{
+                showAlert("WARNING: Found double \" in line: \(sentence)", title: "Format warning")
             }
         }
     }
