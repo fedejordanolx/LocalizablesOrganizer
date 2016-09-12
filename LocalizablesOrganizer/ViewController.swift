@@ -15,6 +15,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var numberOfSentencesTextField: NSTextField!
     
     var sectionsStringArray = [String]()
+    var keysStringsArray = [String]()
     var firstText = ""
     
     ///Disabled, don't know why get sections button dealock
@@ -235,7 +236,30 @@ extension ViewController{
             if sentence.rangeOfString(";") == nil{
                 showAlert("There is a missing ; on line: \(sentence)", title: "Format error")
             }
+            else if sentence.rangeOfString("\";") == nil{
+                showAlert("There is a missing \" on line: \(sentence)", title: "Format error")
+            }
+            else{
+                let key = getKey(fromSentence: sentence)
+                if key == ""{
+                    showAlert("Not found key in line: \(sentence)", title: "Format error")
+                }
+                else{
+                    if keysStringsArray.contains(key){
+                        showAlert("Key duplicated in line: \(sentence)", title: "Format error")
+                    }
+                    keysStringsArray.append(key)
+                }
+            }
         }
+    }
+    
+    func getKey(fromSentence sentence: String) -> String{
+        let stringsArray = sentence.componentsSeparatedByString("\"")
+        if stringsArray.count>0{
+            return stringsArray[1] ?? ""
+        }
+        return ""
     }
 }
 
