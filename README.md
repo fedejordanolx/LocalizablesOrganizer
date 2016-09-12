@@ -29,6 +29,16 @@ The app validates:
 - If there are duplicated keys
 - Another issues
 
-All these issues have been added trying to add a new localizable file :D so if you found another issue, please add it to the code.
+###Planning
+
+- Migrate header strings to a plist file
+- Sort headers alphabetically
+- More validations
+- Open from a file manager, and not copying the file content
+- Save file
+- List of headers and keys editable
+- Search key
+
+All these checkings have been added trying to add a new localizable file :D so if you found another issue, please add it to the code.
 
 Thanks!
