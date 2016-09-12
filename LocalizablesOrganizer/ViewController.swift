@@ -89,9 +89,14 @@ extension ViewController{
 extension ViewController{
     ///Shows an alert telling that the file format is not correct
     func showErrorAlert(){
+        showAlert("The localizable file format is not correct", title: "Error")
+    }
+    
+    ///Shows a custom alert with title and message
+    func showAlert(message: String, title: String){
         let alert = NSAlert()
-        alert.messageText = "Error"
-        alert.informativeText = "The localizable file format is not correct"
+        alert.messageText = title
+        alert.informativeText = message
         alert.addButtonWithTitle("OK")
         alert.alertStyle = NSAlertStyle.WarningAlertStyle
         alert.beginSheetModalForWindow(self.view.window!, completionHandler: nil)
@@ -159,6 +164,8 @@ extension ViewController{
                     else{
                         actualSection += actualString
                         sentencesArray.append(actualString)
+                      
+                        validateSentence(actualString)
                     }
                 }
                 
@@ -215,6 +222,19 @@ extension ViewController{
             sourceTextView.string = orderedText
             sourceTextView.textColor = NSColor.blackColor()
             sourceTextView.font = NSFont(name: "Menlo", size: 12.0)
+        }
+    }
+    
+    func validateSentence(sentence: String){
+        if sentence.rangeOfString("//") != nil && sentence.rangeOfString("\"") == nil{
+            if sentence.rangeOfString("MARK") == nil{
+                showAlert("There is a missing MARK on line: \(sentence)", title: "Format error")
+            }
+        }
+        else{
+            if sentence.rangeOfString(";") == nil{
+                showAlert("There is a missing ; on line: \(sentence)", title: "Format error")
+            }
         }
     }
 }
