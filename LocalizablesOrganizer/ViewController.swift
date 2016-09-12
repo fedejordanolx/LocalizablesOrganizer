@@ -240,6 +240,9 @@ extension ViewController{
             else if sentence.rangeOfString("\";") == nil{
                 showAlert("There is a missing \" on line: \(sentence)", title: "Format error")
             }
+            else if sentence.rangeOfString("\"\"") != nil{
+                showAlert("Found double \" in line: \(sentence)", title: "Format error")
+            }
             else{
                 let key = getKey(fromSentence: sentence)
                 if key == ""{
