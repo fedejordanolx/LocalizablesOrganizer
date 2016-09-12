@@ -139,7 +139,8 @@ extension ViewController{
     ///Gets the localizables sections
     func splitTextInSections(sourceText: NSTextStorage){
         sectionsStringArray = [String]()
-        
+        keysStringsArray = [String]()
+
         var sentencesArray = [String]()
         var actualSection = ""
         
