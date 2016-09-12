@@ -261,6 +261,9 @@ extension ViewController{
             if numberOfComponents > 5{
                 showAlert("WARNING: Found more than 4 \" in line: \(sentence)", title: "Format warning")
             }
+            if sentence.rangeOfString("\\\"") != nil {
+                showAlert("WARNING: Found a \\\" in line: \(sentence)", title: "Format warning")
+            }
             
         }
     }
