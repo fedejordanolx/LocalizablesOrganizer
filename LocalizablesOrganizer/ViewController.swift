@@ -257,9 +257,11 @@ extension ViewController{
             }
             
             //Warnings
-            if sentence.rangeOfString("\"\"") != nil{
-                showAlert("WARNING: Found double \" in line: \(sentence)", title: "Format warning")
+            let numberOfComponents = sentence.componentsSeparatedByString("\"").count
+            if numberOfComponents > 5{
+                showAlert("WARNING: Found more than 4 \" in line: \(sentence)", title: "Format warning")
             }
+            
         }
     }
     
