@@ -14,12 +14,16 @@ class ViewController: NSViewController {
     @IBOutlet weak var numberOfSectionsTextField: NSTextField!
     @IBOutlet weak var numberOfSentencesTextField: NSTextField!
     
+    @IBOutlet weak var logScrollView: NSScrollView!
     var sectionsStringArray = [String]()
     var keysStringsArray = [String]()
     var firstText = ""
     
     ///Disabled, don't know why get sections button dealock
     let checkForFirstText = false
+    
+    let showAlert = false
+    let showLog = true
     
     ///Maybe would be better into a plist
     let orderedSectionsHeadersArray = ["//MARK: - Login",
@@ -61,7 +65,9 @@ class ViewController: NSViewController {
 //MARK:- Actions
 extension ViewController{
     @IBAction func didTapGetSections(sender: AnyObject) {
-        print("didTapGetSections")
+        clearLog()
+        
+        showLog("Started getting sections at \(NSDate().timeIntervalSince1970)\n\n")
         
         if let sourceTextView = sourceScrollView.documentView as? NSTextView, sourceText = sourceTextView.textStorage{
 //            print("sourceText: \(sourceText)")
@@ -78,7 +84,7 @@ extension ViewController{
             splitTextInSections(sourceText)
         }
         
-        print("finish")
+        showLog("Finish getting sections at \(NSDate().timeIntervalSince1970)")
     }
 
     @IBAction func didTapSort(sender: AnyObject) {
@@ -88,21 +94,6 @@ extension ViewController{
 
 //MARK:- Utils
 extension ViewController{
-    ///Shows an alert telling that the file format is not correct
-    func showErrorAlert(){
-        showAlert("The localizable file format is not correct", title: "Error")
-    }
-    
-    ///Shows a custom alert with title and message
-    func showAlert(message: String, title: String){
-        let alert = NSAlert()
-        alert.messageText = title
-        alert.informativeText = message
-        alert.addButtonWithTitle("OK")
-        alert.alertStyle = NSAlertStyle.WarningAlertStyle
-        alert.beginSheetModalForWindow(self.view.window!, completionHandler: nil)
-    }
-    
     ///Validate the text to analize
     func validateText(sourceText: NSTextStorage) -> Bool{
         var validateFirstText = true
@@ -110,7 +101,7 @@ extension ViewController{
             validateFirstText = sourceText.string.rangeOfString("*/") != nil
         }
         if sourceText.string.rangeOfString("//MARK") == nil && validateFirstText {
-            showErrorAlert()
+            handleMessage("There are not headers with //MARK annotation", title: "Format error")
             return false
         }
         return true
@@ -208,6 +199,8 @@ extension ViewController{
     
     ///Sorts and set the new localizable text
     func sortAndSetText(){
+        clearLog()
+        
         var orderedText = firstText
         
         for header in orderedSectionsHeadersArray{
@@ -230,25 +223,25 @@ extension ViewController{
     func validateSentence(sentence: String){
         if sentence.rangeOfString("//") != nil && sentence.rangeOfString("\"") == nil{
             if sentence.rangeOfString("MARK") == nil{
-                showAlert("There is a missing MARK on line: \(sentence)", title: "Format error")
+                handleMessage("There is a missing MARK on line: \(sentence)", title: "Format error")
             }
         }
         else{
             //Errors
             if sentence.rangeOfString(";") == nil{
-                showAlert("There is a missing ; on line: \(sentence)", title: "Format error")
+                handleMessage("There is a missing ; on line: \(sentence)", title: "Format error")
             }
             else if sentence.rangeOfString("\";") == nil{
-                showAlert("There is a missing \" on line: \(sentence)", title: "Format error")
+                handleMessage("There is a missing \" on line: \(sentence)", title: "Format error")
             }
             else{
                 let key = getKey(fromSentence: sentence)
                 if key == ""{
-                    showAlert("Not found key in line: \(sentence)", title: "Format error")
+                    handleMessage("Not found key in line: \(sentence)", title: "Format error")
                 }
                 else{
                     if keysStringsArray.contains(key){
-                        showAlert("Key duplicated in line: \(sentence)", title: "Format error")
+                        handleMessage("Key duplicated in line: \(sentence)", title: "Format error")
                     }
                     else{
                         keysStringsArray.append(key)
@@ -259,10 +252,10 @@ extension ViewController{
             //Warnings
             let numberOfComponents = sentence.componentsSeparatedByString("\"").count
             if numberOfComponents > 5{
-                showAlert("WARNING: Found more than 4 \" in line: \(sentence)", title: "Format warning")
+                handleMessage("WARNING: Found more than 4 \" in line: \(sentence)", title: "Format warning")
             }
             if sentence.rangeOfString("\\\"") != nil {
-                showAlert("WARNING: Found a \\\" in line: \(sentence)", title: "Format warning")
+                handleMessage("WARNING: Found a \\\" in line: \(sentence)", title: "Format warning")
             }
             
         }
@@ -274,6 +267,48 @@ extension ViewController{
             return stringsArray[1] ?? ""
         }
         return ""
+    }
+}
+
+//MARK:- Messages handling
+extension ViewController{
+    ///Shows an alert and adds the message to the log text view
+    func handleMessage(message: String, title: String){
+        if showAlert {
+            showAlert(message, title: title)
+        }
+        
+        if showLog {
+            let logString = title + ": " + message + "\n"
+            showLog(logString)
+        }
+    }
+    
+    ///Shows a message in the log text view
+    func showLog(message: String){
+        if let logTextView = logScrollView.documentView as? NSTextView{
+            let newString = (logTextView.string ?? "") + message
+            logTextView.string = newString
+            logTextView.textColor = NSColor.blackColor()
+            logTextView.font = NSFont(name: "Courier New", size: 12.0)
+        }
+    }
+    
+    ///Shows a custom alert with title and message
+    func showAlert(message: String, title: String){
+        let alert = NSAlert()
+        alert.messageText = title
+        alert.informativeText = message
+        alert.addButtonWithTitle("OK")
+        alert.alertStyle = NSAlertStyle.WarningAlertStyle
+        alert.beginSheetModalForWindow(self.view.window!, completionHandler: nil)
+    }
+    
+    ///Clears the messages log text view
+    func clearLog(){
+        if let logTextView = logScrollView.documentView as? NSTextView{
+            logTextView.string = ""
+        }
     }
 }
 
