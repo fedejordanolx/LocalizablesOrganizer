@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LocalizablesOrganizer/ViewController.swift"
-            timestampString = "495464823.271887"
+            timestampString = "496078559.59312"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
+            startingLineNumber = "301"
+            endingLineNumber = "301"
             landmarkName = "handleMessage(_:title:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LocalizablesOrganizer/ViewController.swift"
-            timestampString = "495464829.48745"
+            timestampString = "496078559.59312"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "278"
-            endingLineNumber = "278"
+            startingLineNumber = "296"
+            endingLineNumber = "296"
             landmarkName = "handleMessage(_:title:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LocalizablesOrganizer/ViewController.swift"
-            timestampString = "495464855.795019"
+            timestampString = "496078559.59312"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "279"
-            endingLineNumber = "279"
+            startingLineNumber = "297"
+            endingLineNumber = "297"
             landmarkName = "handleMessage(_:title:)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,60 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "LocalizablesOrganizer/ViewController.swift"
-            timestampString = "495464866.587563"
+            timestampString = "496075179.028366"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "290"
-            endingLineNumber = "290"
-            landmarkName = "showLog(_:)"
-            landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LocalizablesOrganizer.ViewController.showLog (Swift.String) -&gt; ()"
-                  moduleName = "LocalizablesOrganizer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/federicojordan/Development/LocalizablesOrganizer/LocalizablesOrganizer/ViewController.swift"
-                  timestampString = "495464866.589337"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "290"
-                  endingLineNumber = "290"
-                  offsetFromSymbolStart = "34">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "LocalizablesOrganizer.ViewController.showLog (Swift.String) -&gt; ()"
-                  moduleName = "LocalizablesOrganizer"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/federicojordan/Development/LocalizablesOrganizer/LocalizablesOrganizer/ViewController.swift"
-                  timestampString = "495464866.589468"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "290"
-                  endingLineNumber = "290"
-                  offsetFromSymbolStart = "433">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "LocalizablesOrganizer/ViewController.swift"
-            timestampString = "495464867.116909"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "291"
-            endingLineNumber = "291"
-            landmarkName = "showLog(_:)"
+            startingLineNumber = "77"
+            endingLineNumber = "77"
+            landmarkName = "didTapGetSections(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

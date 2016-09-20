@@ -31,7 +31,7 @@ class ViewController: NSViewController {
                                 "//MARK:- Alerts",
                                 "//MARK: - Home",
                                 "//MARK: -- Location not allowed",
-                                "//MARK: - Banner",
+                                "//MARK: -- Banner",
                                 "//MARK: - Search",
                                 "//MARK: - Product",
                                 "//MARK: -- Delete and report ad",
@@ -55,7 +55,6 @@ class ViewController: NSViewController {
                                 "//MARK: - Onboarding",
                                 "//MARK: - Rate Alert",
                                 "//MARK:- Photo gallery",
-                                "//MARK:- No Network",
                                 "//MARK:- Push notification reminder",
                                 "//MARK:- Find friends",
                                 "//MARK: - Users Found",
@@ -82,6 +81,9 @@ extension ViewController{
             
             //Get sections
             splitTextInSections(sourceText)
+            
+            //Validate headers
+            validateHeaders()
         }
         
         showLog("Finish getting sections at \(NSDate().timeIntervalSince1970)")
@@ -105,6 +107,20 @@ extension ViewController{
             return false
         }
         return true
+    }
+    
+    func validateHeaders(){
+        for header in orderedSectionsHeadersArray{
+            var foundHeader = false
+            for section in sectionsStringArray{
+                if section.rangeOfString(header) != nil{
+                    foundHeader = true
+                }
+            }
+            if foundHeader == false{
+                handleMessage("Not found header \(header)", title: "Format error")
+            }
+        }
     }
     
     ///Get the first text (file name, author, project headers)
@@ -137,7 +153,8 @@ extension ViewController{
         
         var actualString = ""
         
-        let restText = sourceText.string.stringByReplacingOccurrencesOfString(firstText, withString: "")
+        let restText = sourceText.string.stringByReplacingOccurrencesOfString(firstText, withString: "").stringByReplacingOccurrencesOfString("\r", withString: "\n")
+        
         let restTextStorage = NSTextStorage(string: restText)
         
         print("sourceText.characters.count: \(restTextStorage.characters.count)")
@@ -145,8 +162,8 @@ extension ViewController{
             //                                print("character: \(character)")
             actualString += character.string
             
-            if character.string == "\n"{
-                //                    print("actualString: \(actualString)")
+            if character.string == "\n" {
+//                                    print("actualString: \(actualString)")
                 
                 if actualString != "\n"{
                     if actualString.rangeOfString("//MARK") != nil{
